@@ -60,9 +60,6 @@ We will create a Kubernetes cluster using [Amazon EKS](https://aws.amazon.com/ek
         - **NodeImageId**: eu-west-2 (Ireland)
         - **NodeVolumeSize**: 20
  - Install the [Kubernetes dashboard](https://docs.aws.amazon.com/eks/latest/userguide/dashboard-tutorial.html) to monitor visually the resources of the cluster (optional).
-    - Not being able to access to the dashboard is a commom issue. Use the following to address it:
-        ```
-        ```
 
 
 ### Create a PostgreSQL database
