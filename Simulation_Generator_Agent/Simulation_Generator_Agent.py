@@ -7,7 +7,7 @@ from argparse import ArgumentParser
 from itertools import product
 from pandas import DataFrame
 from Config_Loader import load_environment_variables
-from DB_Manager import execute_query, get_max_simulation_id, insert_generated_simulations_into_db
+from DB_Manager import execute_query, get_max_simulation_id, insert_generated_simulations_into_db, create_database
 
 # hardcoded file names
 config_files = ['input_params.json', 'output_params.json', 'anomalous_params.json', 'experimentation_config.csv']
@@ -117,8 +117,8 @@ def generate_all_simulation_combinations():
 
     # sort columns to match the schema of the database
     sorted_cols = ['simulation_id', 'timestamp_init', 'timestamp_end'] \
-                      + input_params_names \
-                      + ['state', 'label']
+                  + input_params_names \
+                  + ['state', 'label']
 
     simulation_combinations = simulation_combinations[sorted_cols]
 
@@ -167,8 +167,8 @@ def get_experimentation_config_from_csv():
 
     # sort columns to match the schema of the database
     sorted_cols = ['simulation_id', 'timestamp_init', 'timestamp_end'] \
-                       + input_params_names \
-                       + ['state', 'label']
+                  + input_params_names \
+                  + ['state', 'label']
 
     experimentation_config = experimentation_config[sorted_cols]
 
@@ -191,8 +191,8 @@ def generate_create_simulations_result_table_sql():
                                'REFERENCES experimentation_config(simulation_id),' \
                                '"sea_id" text,' \
                                '"execution_time" real,' \
-
-    # the dynamic part of the query depends on the output parameters specified by the user
+ \
+        # the dynamic part of the query depends on the output parameters specified by the user
     dynamic_variable_sql = ",".join('"' + variable_name + '" bytea' for variable_name in output_params)
 
     final_create_table_sql = initial_create_table_sql + dynamic_variable_sql + ', "label" integer)'
@@ -231,7 +231,7 @@ def generate_stored_procedure_get_simulation_config():
         DECLARE
             simulation_row experimentation_config%rowtype;
         BEGIN
-            SELECT * INTO simulation_row * FROM experimentation_config WHERE state = 'Not executed' ORDER BY simulation_id LIMIT 1 FOR UPDATE;
+            SELECT * INTO simulation_row FROM experimentation_config WHERE state = 'Not executed' ORDER BY simulation_id LIMIT 1 FOR UPDATE;
             UPDATE experimentation_config SET timestamp_init= to_char(current_timestamp, 'YYYY/MM/DD HH24:MI:SS'), state='Executing' where simulation_id = simulation_row.simulation_id; 
             RETURN QUERY SELECT * FROM experimentation_config WHERE simulation_id = simulation_row.simulation_id; 
         END;
@@ -308,8 +308,8 @@ def main():
         else:
             experimentation_config = get_experimentation_config_from_csv()
 
-	# create the database
-	create_database(db_config_params)
+        # create the database
+        create_database(db_config_params)
 
         # get max simulation id to correctly assign the index to new generated simulations
         max_simulation_id = get_max_simulation_id(db_config_params)
@@ -325,7 +325,7 @@ def main():
         create_table_query = generate_create_simulations_failures_registry_table_sql()
         execute_query(db_config_params, create_table_query)
 
-        # create stored procedures 
+        # create stored procedures
         get_simulation_params_query = generate_stored_procedure_get_simulation_config()
         search_failed_simulations_query = generate_stored_procedure_search_failed_simulations()
 
@@ -340,4 +340,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
