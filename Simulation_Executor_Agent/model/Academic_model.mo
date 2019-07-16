@@ -1,4 +1,4 @@
-model modelo_simple
+model academic_model
 import SI = Modelica.SIunits;
 parameter SI.Mass M1 = 10 "Mass of first mass"; 
 parameter SI.Mass M2 = 20 "Mass of second mass"; 
@@ -81,4 +81,4 @@ equation
     uses(Modelica(version = "3.2.2")),
   version = "",
   __OpenModelica_commandLineOptions = "");
-end modelo_simple;
+end academic_model;
