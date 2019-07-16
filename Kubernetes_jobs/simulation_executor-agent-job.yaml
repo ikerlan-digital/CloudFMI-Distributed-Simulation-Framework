@@ -10,9 +10,9 @@ spec:
     spec:
       containers:
       - name: simulation-executor-agent-container
-        image: <path-to-your-image>:latest
+        image: mcanizo/cloudfmi-distributed-simulation-framework:simulation-executor-agent
         imagePullPolicy: IfNotPresent
-        command: ["sh", "-c", "python Simulation_Executor_Agent.py --model_path <path-to-your-model>"]
+        command: ["sh", "-c", "python Simulation_Executor_Agent.py --model_path https://github.com/ikerlan2015/CloudFMI-Distributed-Simulation-Framework/raw/master/Simulation_Executor_Agent/model/Academic_model.fmu"]
         resources:
           limits:
             cpu: "1"
