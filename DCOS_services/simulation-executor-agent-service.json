@@ -1,0 +1,50 @@
+{
+  "env": {
+    "POSTGRESQL_DB_NAME": "<db_name>",
+    "POSTGRESQL_DB_USER": "<db_user>",
+    "MAX_SIMULATION_FAILURES": "2",
+    "POSTGRESQL_PORT": "<db_port>",
+    "POSTGRESQL_IP": "<hostname or IP>",
+    "SIMULATION_TIME_OUT": "30",
+    "POSTGRESQL_DB_PASS": "<db_password>"
+  },
+  "id": "/cloud-fmi/simulation-executor-agent",
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "cmd": "python Simulation_Executor_Agent.py --model_path https://github.com/ikerlan2015/CloudFMI-Distributed-Simulation-Framework/raw/master/Simulation_Executor_Agent/model/Academic_model.fmu",
+  "container": {
+    "portMappings": [],
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "mcanizo/cloudfmi-distributed-simulation-framework:simulation-executor-agent",
+      "forcePullImage": true,
+      "privileged": false,
+      "parameters": []
+    }
+  },
+  "cpus": 2,
+  "disk": 0,
+  "instances": 2,
+  "maxLaunchDelaySeconds": 3600,
+  "mem": 3000,
+  "gpus": 0,
+  "networks": [
+    {
+      "mode": "container/bridge"
+    }
+  ],
+  "requirePorts": false,
+  "upgradeStrategy": {
+    "maximumOverCapacity": 1,
+    "minimumHealthCapacity": 1
+  },
+  "killSelection": "YOUNGEST_FIRST",
+  "unreachableStrategy": {
+    "inactiveAfterSeconds": 0,
+    "expungeAfterSeconds": 0
+  },
+  "healthChecks": [],
+  "fetch": [],
+  "constraints": []
+}
