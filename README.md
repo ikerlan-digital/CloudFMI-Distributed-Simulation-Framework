@@ -6,6 +6,7 @@ This is a cloud-based Distributed Simulation (DS) framework build in Python that
 ## Repository structure
 The structure of the repository is as follows:
 
+ - **[DCOS_services](DCOS_services/)**: contains configuration files to launch both the SGA and the SEA in DC/OS.
  - **[Kubernetes_job](Kubernetes_job/)**: contains configuration files to launch both the SGA and the SEA in Kubernetes.
  - **[Scalability_test](Scalability_test/)**: contains the code to conduct automatically a scalability test.
  - **[Simulation_Executor_Agent](Simulation_Executor_Agent/)**: contain the code of the SEA.
