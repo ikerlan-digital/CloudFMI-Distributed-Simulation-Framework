@@ -81,7 +81,7 @@ We will create a PostgreSQL database using [Amazon RDS](https://aws.amazon.com/r
     - [pgAdmin](https://www.pgadmin.org/)
 
 ### Create Docker container for both SGA and SEA (optional)
-Omit this step if you did not modify the code. In contrast, you have to containerize the SGA and/or the SEA with Docker again in case you modified them. Note that the generated images will have to be uploaded to a registry accesible by your cluster. To do so, follow these steps:
+Omit this step if you did not modify the code. You can find the oficial docker images in the [DockerHub repository](https://cloud.docker.com/repository/docker/mcanizo/cloudfmi-distributed-simulation-framework). In contrast, you have to containerize the SGA and/or the SEA with Docker again in case you modified them. Note that the generated images will have to be uploaded to a registry accesible by your cluster. To do so, follow these steps:
 
  1. Install Docker if not installed yet ([official web page](https://docs.docker.com/install/)).
  2. Dockerize the SGA:
